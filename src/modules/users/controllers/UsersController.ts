@@ -7,9 +7,6 @@ export default class UsersController {
   public async index(request: Request, response: Response): Promise<Response> {
     const listUser = new ListUserService();
 
-    // eslint-disable-next-line
-    console.log(request.user.id);
-
     const users = await listUser.execute();
 
     return response.status(302).json(users);
