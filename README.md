@@ -1,35 +1,35 @@
 # Sales-api
 
-Este é um projeto com fins estudantis, projeto feito em typescript e typeorm usando o banco de dados postgres, caso haja duvidas em seu desenvolvimento espero que este projeto sane-as!   😁
+This is a project for studies, this project is done in typescript, typeorm. if there are any doubts in its development I hope this project helps!
 
 
-# Iniciando o Projeto
+# Starting the Project
 
-Basta clonar o repositório e rodas seguir os passos a baixo, caso queira pode somente instalar as dependências e ir clonando a estrutura.
+Just clone the repository and run the steps below, if you want you can just install the dependencies and go cloning the structure.
 
-## Instalando as dependências
+## Installing the dependencies
 
-Para instalar as dependências você deve ter o **yarn** instalado na sua maquina, logo após execute os comandos abaixo!
+To install the dependencies you must have ** yarn ** installed on your machine, right after executing the commands below.
 
-- Instalando  dependências do Projeto
+- Installing Project dependencies
 
-> yarn add bcryptjs celebrate cors date-fns express express-async-errors jsonwebtoken pg reflect-metadata typeorm
+> yarn add bcryptjs celebrate cors date-fns express express-async-errors jsonwebtoken pg reflect-metadata typeorm multer nodemailer
 
-- Instalando dependências de desenvolvimento do projeto
+- Installing project development dependencies
 
 >yarn add typescript tsconfig-paths ts-node-dev prettier eslint-plugin-prettier eslint-config-prettier eslint -D
 
-- Instalando os types das dependências de desenvolvimento do projeto
+- Installing the types of the project's development dependencies
 
->yarn add @types/bcryptjs @types/cors @types/express @types/joi @types/jsonwebtoken @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser -D
+>yarn add @types/bcryptjs @types/cors @types/express @types/joi @types/jsonwebtoken @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser @types/multer @types/nodemailer -D
 
-## Configuração do TypeOrm
+## TypeOrm configuration
 
-Na pasta raiz do projeto tem um arquivo nomeado **ormconfig.example.json** basta renoméa-lo para **ormconfig.json**, nele está a configuração do banco de dados
+In the project's root folder there is a file named ** ormconfig.example.json ** just rename it to ** ormconfig.json **, in it is the database configuration
 
-## Vscode Extensões
+## Vscode Extensions
 
-Extensões basicas para back-end
+Basic backend extensions
 
 ![alt text](https://i.imgur.com/CMD5W0O.png)
 ![alt text](https://i.imgur.com/tjPGWmL.png)
@@ -37,11 +37,11 @@ Extensões basicas para back-end
 
 ## Alguns Comandos
 
-- Startar o Projeto
+- Start the Project
 -> yarn dev
-- Criar Migração
+- Create Migration
 -> yarn typeorm migration:create -n **migration-name**
-- Reverter Migração
+- Revert Migration
 -> yarn typeorm migration:revert
-- Rodar Migração
+- Run Migration
 -> yarn typeorm migration:run
