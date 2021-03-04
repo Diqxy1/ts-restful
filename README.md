@@ -23,7 +23,7 @@ This is a project for studies, this project is done in typescript, typeorm. if t
 **/PASSWORD**
 - Reset Password
 - Forgot Password
-- 
+
 ## Requirements
 
 Install global TypeScript and TypeScript Node
