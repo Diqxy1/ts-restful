@@ -1,47 +1,131 @@
 # Sales-api
 
-Este é um projeto com fins estudantis, projeto feito em typescript e typeorm usando o banco de dados postgres, caso haja duvidas em seu desenvolvimento espero que este projeto sane-as!   😁
+This is a project for studies, this project is done in typescript, typeorm. if there are any doubts in its development I hope this project helps!
 
 
-# Iniciando o Projeto
+## This is a simple API that performs the follwoing
 
-Basta clonar o repositório e rodas seguir os passos a baixo, caso queira pode somente instalar as dependências e ir clonando a estrutura.
+**/USER**
+- Create User
+- Get all Users
+- Update Avatar
 
-## Instalando as dependências
+**/PRODUCT**
+- Create Product
+- Update Product
+- Show Product
+- Get all Product
+- Delete Product
 
-Para instalar as dependências você deve ter o **yarn** instalado na sua maquina, logo após execute os comandos abaixo!
+**/SESSIONS**
+- Authentic user
 
-- Instalando  dependências do Projeto
+**/PASSWORD**
+- Reset Password
+- Forgot Password
 
-> yarn add bcryptjs celebrate cors date-fns express express-async-errors jsonwebtoken pg reflect-metadata typeorm
+## Requirements
 
-- Instalando dependências de desenvolvimento do projeto
+Install global TypeScript and TypeScript Node
 
->yarn add typescript tsconfig-paths ts-node-dev prettier eslint-plugin-prettier eslint-config-prettier eslint -D
+```
+npm install -g typescript ts-node
+```
 
-- Instalando os types das dependências de desenvolvimento do projeto
+## Clone this repository
 
->yarn add @types/bcryptjs @types/cors @types/express @types/joi @types/jsonwebtoken @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser -D
+```
+git clone https://github.com/Diqxy1/ts-restful.git
+```
 
-## Configuração do TypeOrm
+Then install the dependencies
 
-Na pasta raiz do projeto tem um arquivo nomeado **ormconfig.example.json** basta renoméa-lo para **ormconfig.json**, nele está a configuração do banco de dados
+```
+yarn install
+```
 
-## Vscode Extensões
+## Start the server
 
-Extensões basicas para back-end
+Run in development mode
+
+```
+yarn dev
+```
+
+## TypeOrm configuration
+
+In the project's root folder there is a file named **ormconfig.example.json** just rename it to **ormconfig.json**, in it is the database configuration
+
+## Vscode Extensions
+
+Basic backend extensions
 
 ![alt text](https://i.imgur.com/CMD5W0O.png)
 ![alt text](https://i.imgur.com/tjPGWmL.png)
 ![alt text](https://i.imgur.com/IEM5n8p.png)
 
-## Alguns Comandos
+## Some Commands
 
-- Startar o Projeto
+- Start the Project
 -> yarn dev
-- Criar Migração
+- Create Migration
 -> yarn typeorm migration:create -n **migration-name**
-- Reverter Migração
+- Revert Migration
 -> yarn typeorm migration:revert
-- Rodar Migração
+- Run Migration
 -> yarn typeorm migration:run
+
+## Working Routes
+
+The default URL is: https://localhost:3333
+
+`GET:  http://localhost:3333`
+
+## **User**
+
+Get all Users:
+
+`GET:  http://localhost:3333/users/`
+
+Create User:
+
+`POST:  http://localhost:3333/users/`
+
+Update a Avatar:
+
+`PATCH:  http://localhost:3333/users/avatar/ + file`
+
+Forgot Password:
+
+`POST:  http://localhost:3333/password/forgot/`
+
+Reset Password:
+
+`POST:  http://localhost:3333/password/reset/`
+
+Authentication User:
+
+`POST:  http://localhost:3333/sessions/`
+
+
+## **Product**
+
+Get all Products:
+
+`GET:  http://localhost:3333/products/`
+
+Show Product:
+
+`GET:  http://localhost:3333/products/id/`
+
+Update Product:
+
+`PUT:  http://localhost:3333/products/id/`
+
+Create Product:
+
+`POST:  http://localhost:3333/products/`
+
+Delete Product:
+
+`DELETE:  http://localhost:3333/products/id/`
