@@ -36,7 +36,6 @@ npm install -g typescript ts-node
 
 ```
 git clone https://github.com/Diqxy1/ts-restful.git
-
 ```
 
 Then install the dependencies
@@ -82,7 +81,7 @@ The default URL is: https://localhost:3333
 
 `GET:  http://localhost:3333`
 
-**User**
+## **User**
 
 Get all Users:
 
@@ -109,7 +108,7 @@ Authentication User:
 `POST:  http://localhost:3333/sessions/`
 
 
-**Product**
+## **Product**
 
 Get all Products:
 
