@@ -6,7 +6,7 @@ interface ISendMail {
 }
 
 export default class EtherealMail {
-  static async sendMail({to, body}: ISendMail): Promise<void> {
+  static async sendMail({ to, body }: ISendMail): Promise<void> {
     const account = await nodemailer.createTestAccount();
 
     const transporter = nodemailer.createTransport({
@@ -16,7 +16,7 @@ export default class EtherealMail {
       auth: {
         user: account.user,
         pass: account.pass,
-      }
+      },
     });
 
     const message = await transporter.sendMail({

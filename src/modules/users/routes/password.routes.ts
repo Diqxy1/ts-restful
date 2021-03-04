@@ -2,7 +2,10 @@ import { Router } from 'express';
 
 import ForgotPasswordController from '../controllers/ForgotPasswordController';
 import ResetPasswordController from '../controllers/ResetPasswordController';
-import { forgotPasswordValidator, resetPasswordValidator } from '../validators/password.validators';
+import {
+  forgotPasswordValidator,
+  resetPasswordValidator,
+} from '../validators/password.validators';
 
 const passwordRouter = Router();
 

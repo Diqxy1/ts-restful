@@ -25,8 +25,8 @@ class CreateUserService {
       throw new AppError('Password too weak', 406);
     }
 
-    if (password == name){
-      throw new AppError('Não utilize seu nome na senha')
+    if (password == name) {
+      throw new AppError('Não utilize seu nome na senha');
     }
 
     const passwordHashed = await hash(password, 8);
