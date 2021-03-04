@@ -13,13 +13,13 @@ const forgotPasswordController = new ForgotPasswordController();
 const resetPasswordController = new ResetPasswordController();
 
 passwordRouter.post(
-  '/forgot',
+  '/forgot/',
   forgotPasswordValidator,
   forgotPasswordController.create,
 );
 
 passwordRouter.post(
-  '/reset',
+  '/reset/',
   resetPasswordValidator,
   resetPasswordController.create,
 );
