@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+
 import SendForgotPasswordEmailService from '../services/SendForgotPasswordEmailService';
 
 export default class ForgotPasswordController {
