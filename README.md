@@ -44,6 +44,10 @@ Then install the dependencies
 yarn install
 ```
 
+```
+yarn install -D
+```
+
 ## Start the server
 
 Run in development mode
