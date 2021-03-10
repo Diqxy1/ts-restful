@@ -4,7 +4,8 @@ import ResetPasswordService from '../services/ResetPasswordService';
 
 export default class ResetPasswordController {
   public async create(request: Request, response: Response): Promise<Response> {
-    const { token, password } = request.body;
+    const { token } = request.params;
+    const { password } = request.body;
 
     const resetPasswordEmail = new ResetPasswordService();
 
