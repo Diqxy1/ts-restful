@@ -46,6 +46,14 @@ class UpdateProfileService {
         throw new AppError('Old password does not match.');
       }
 
+      if (password.length <= 3) {
+        throw new AppError('Password too weak', 406);
+      }
+
+      if (password == name) {
+        throw new AppError('Do not use your name in the password', 406);
+      }
+
       user.password = await hash(password, 8);
     }
 
