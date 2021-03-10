@@ -1,5 +1,5 @@
 import { getCustomRepository } from 'typeorm';
-import { hash } from 'bcryptjs';
+//import { hash } from 'bcryptjs';
 
 import AppError from '@shared/errors/AppError';
 import User from '../typeorm/entities/User';
@@ -32,6 +32,7 @@ class CreateUserService {
 
     const generatedPassword = generatePassword('12');
 
+    // eslint-disable-next-line
     console.log('Generate password:' + generatedPassword);
 
     //const passwordHashed = await hash(generatedPassword, 8);
@@ -44,6 +45,7 @@ class CreateUserService {
       password: generatedPassword,
     });
 
+    // eslint-disable-next-line
     console.log('Password User:' + generatedPassword);
 
     await usersRepository.save(user);
