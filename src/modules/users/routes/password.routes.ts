@@ -21,7 +21,7 @@ passwordRouter.post(
 );
 
 passwordRouter.post(
-  '/reset/',
+  '/reset/:token/',
   resetPasswordValidator,
   resetPasswordController.create,
 );

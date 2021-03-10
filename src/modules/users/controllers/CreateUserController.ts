@@ -13,6 +13,8 @@ export default class CreateUserController {
       name,
     });
 
-    return response.status(204).json();
+    return response
+      .status(204)
+      .json('User created with success check your email');
   }
 }
