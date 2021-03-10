@@ -3,7 +3,12 @@ interface ILength {
 }
 
 export default function generatePassword({ length }: ILength): string {
-  length = 12;
+  const min = 1;
+  const max = 15;
+
+  const number = Math.floor(Math.random() * (max - min + 1) + min);
+
+  length = number;
 
   let result = '';
 

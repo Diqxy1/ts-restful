@@ -4,7 +4,7 @@ import path from 'path';
 import AppError from '@shared/errors/AppError';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 import EtherealMail from '@config/mail/EtherealMail';
-import CreateUserService from './CreateUserService';
+import CreateUserService, { generatedPassword } from './CreateUserService';
 
 interface IRequest {
   email: string;
@@ -54,7 +54,7 @@ class CreateUserEmailService {
           name: name,
           user: `${newUser.name}`,
           email: `${email}`,
-          password: `${newUser.password}`,
+          password: `${generatedPassword}`,
         },
       },
     });

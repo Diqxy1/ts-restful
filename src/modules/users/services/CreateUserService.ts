@@ -1,5 +1,5 @@
 import { getCustomRepository } from 'typeorm';
-//import { hash } from 'bcryptjs';
+import { hash } from 'bcryptjs';
 
 import AppError from '@shared/errors/AppError';
 import User from '../typeorm/entities/User';
@@ -11,6 +11,8 @@ interface IRequest {
   email: string;
   //password: string;
 }
+
+export const generatedPassword = generatePassword('');
 
 class CreateUserService {
   public async execute({ name, email }: IRequest): Promise<User> {
@@ -30,19 +32,15 @@ class CreateUserService {
       throw new AppError('Não utilize seu nome na senha');
     } */
 
-    const generatedPassword = generatePassword('12');
+    const passwordHashed = await hash(generatedPassword, 8);
 
     // eslint-disable-next-line
-    console.log('Generate password:' + generatedPassword);
-
-    //const passwordHashed = await hash(generatedPassword, 8);
-
-    //console.log('Hash Password:' + passwordHashed);
+    console.log('Hash Password:' + passwordHashed);
 
     const user = usersRepository.create({
       name,
       email,
-      password: generatedPassword,
+      password: passwordHashed,
     });
 
     // eslint-disable-next-line
