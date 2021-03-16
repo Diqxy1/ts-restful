@@ -4,18 +4,21 @@ import { hash } from 'bcryptjs';
 import AppError from '@shared/errors/AppError';
 import User from '../typeorm/entities/User';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
-import generatePassword from '@shared/http/middlewares/generatePassword';
+//import generatePassword from '@shared/http/middlewares/generatePassword';
+import passwordChecker from '../validators/passwordChecker';
+import emailChecker from '../validators/emailChecker';
+import nameChecker from '../validators/nameChecker';
 
 interface IRequest {
   name: string;
   email: string;
-  //password: string;
+  password: string;
 }
 
-export const generatedPassword = generatePassword('');
+//export const generatedPassword = generatePassword('');
 
 class CreateUserService {
-  public async execute({ name, email }: IRequest): Promise<User> {
+  public async execute({ name, email, password }: IRequest): Promise<User> {
     const usersRepository = getCustomRepository(UsersRepository);
 
     const emailExists = await usersRepository.findByEmail(email);
@@ -24,27 +27,22 @@ class CreateUserService {
       throw new AppError('Email address already user', 406);
     }
 
-    /* if (password.length < 3) {
-      throw new AppError('Password too weak', 406);
-    }
+    // checkerEmail
+    const validateEmail = emailChecker(email);
 
-    if (password == name) {
-      throw new AppError('Não utilize seu nome na senha');
-    } */
+    // checkerName
+    const validateName = nameChecker(name);
 
-    const passwordHashed = await hash(generatedPassword, 8);
+    // checkerPassword
+    const validatePassword = passwordChecker(name, password);
 
-    // eslint-disable-next-line
-    console.log('Hash Password:' + passwordHashed);
+    const passwordHashed = await hash(validatePassword, 8);
 
     const user = usersRepository.create({
-      name,
-      email,
+      name: validateName,
+      email: validateEmail,
       password: passwordHashed,
     });
-
-    // eslint-disable-next-line
-    console.log('Password User:' + generatedPassword);
 
     await usersRepository.save(user);
 

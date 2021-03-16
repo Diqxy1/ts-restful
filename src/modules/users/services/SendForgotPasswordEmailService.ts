@@ -4,7 +4,9 @@ import path from 'path';
 import AppError from '@shared/errors/AppError';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
 import UserTokensRepository from '../typeorm/repositories/UserTokensRepository';
-import EtherealMail from '@config/mail/EtherealMail';
+import mailConfig from '@config/mail/mail';
+import EtherealMail from '@shared/http/services/EtherealMail';
+import SalesMail from '@shared/http/services/SalesMail';
 
 interface IRequest {
   email: string;
@@ -31,20 +33,41 @@ class SendForgotPasswordEmailService {
       'forgot_password.hbs',
     );
 
-    await EtherealMail.sendMail({
-      to: {
-        name: user.name,
-        email: user.email,
-      },
-      subject: '[API Vendas] Recuperação de senha',
-      templateData: {
-        file: forgotPasswordTemplate,
-        variables: {
+    if (mailConfig.driver == 'production') {
+      await SalesMail.sendMail({
+        to: {
           name: user.name,
-          link: `${process.env.APP_WEB_URL}/reset_password?token=${token}`,
+          email: user.email,
         },
-      },
-    });
+        subject: '[API Vendas] Recuperação de senha',
+        templateData: {
+          file: forgotPasswordTemplate,
+          variables: {
+            name: user.name,
+            link: `${process.env.APP_WEB_URL}/reset_password?token=${token}`,
+          },
+        },
+      });
+      return;
+    }
+    if (mailConfig.driver == 'developer') {
+      await EtherealMail.sendMail({
+        to: {
+          name: user.name,
+          email: user.email,
+        },
+        subject: '[API Vendas] Recuperação de senha',
+        templateData: {
+          file: forgotPasswordTemplate,
+          variables: {
+            name: user.name,
+            link: `${process.env.APP_WEB_URL}/reset_password?token=${token}`,
+          },
+        },
+      });
+    } else {
+      throw new AppError('Invalid email configuration driver', 503);
+    }
   }
 }
 

@@ -1,15 +1,22 @@
 import { getCustomRepository } from 'typeorm';
+import { hash } from 'bcryptjs';
 
 import path from 'path';
 import AppError from '@shared/errors/AppError';
 import UsersRepository from '../typeorm/repositories/UsersRepository';
-import EtherealMail from '@config/mail/EtherealMail';
-import CreateUserService, { generatedPassword } from './CreateUserService';
+import EtherealMail from '@shared/http/services/EtherealMail';
+import generatedPassword from '@shared/http/middlewares/generatePassword';
+import mailConfig from '@config/mail/mail';
+import SalesMail from '@shared/http/services/SalesMail';
+import emailChecker from '../validators/emailChecker';
+import nameChecker from '../validators/nameChecker';
 
 interface IRequest {
   email: string;
   name: string;
 }
+
+export const passwordGenerator = generatedPassword(15);
 
 class CreateUserEmailService {
   public async execute({ email, name }: IRequest): Promise<void> {
@@ -27,37 +34,69 @@ class CreateUserEmailService {
       throw new AppError('User already exists', 401);
     }
 
-    const createUser = new CreateUserService();
+    // checkerEmail
+    const validateEmail = emailChecker(email);
 
-    const newUser = await createUser.execute({
-      name,
-      email,
+    // checkerName
+    const validateName = nameChecker(name);
+
+    const passwordHashed = await hash(passwordGenerator, 8);
+
+    const newUser = await usersRepository.create({
+      name: validateName,
+      email: validateEmail,
+      password: passwordHashed,
     });
 
+    await usersRepository.save(newUser);
+
     //console.log(token);
-    const forgotPasswordTemplate = path.resolve(
+    const createAccountTemplate = path.resolve(
       __dirname,
       '..',
       'views',
       'user_account.hbs',
     );
 
-    await EtherealMail.sendMail({
-      to: {
-        name: name,
-        email: email,
-      },
-      subject: '[API Vendas] Criação de usuario',
-      templateData: {
-        file: forgotPasswordTemplate,
-        variables: {
+    if (mailConfig.driver === 'production') {
+      await SalesMail.sendMail({
+        to: {
           name: name,
-          user: `${newUser.name}`,
-          email: `${email}`,
-          password: `${generatedPassword}`,
+          email: email,
         },
-      },
-    });
+        subject: '[API Vendas] Criação de conta',
+        templateData: {
+          file: createAccountTemplate,
+          variables: {
+            name: name,
+            user: `${newUser.name}`,
+            email: `${email}`,
+            password: `${passwordGenerator}`,
+          },
+        },
+      });
+      return;
+    }
+    if (mailConfig.driver === 'developer') {
+      await EtherealMail.sendMail({
+        to: {
+          name: name,
+          email: email,
+        },
+        subject: '[API Vendas] Criação de conta',
+        templateData: {
+          file: createAccountTemplate,
+          variables: {
+            name: name,
+            user: `${newUser.name}`,
+            email: `${email}`,
+            password: `${passwordGenerator}`,
+          },
+        },
+      });
+    } else {
+      throw new AppError('Invalid email configuration driver', 503);
+    }
   }
 }
 

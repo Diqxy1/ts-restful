@@ -1,10 +1,7 @@
-interface ILength {
-  length: number;
-}
-
-export default function generatePassword({ length }: ILength): string {
-  const min = 5;
-  const max = 15;
+// eslint-disable-next-line
+export default function generatePassword(length: number) {
+  const min = 10;
+  const max = 20;
 
   const number = Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -13,12 +10,16 @@ export default function generatePassword({ length }: ILength): string {
   let result = '';
 
   const characters =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%¨&*()_+-=';
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%¨&*()_+-=<>?';
 
-  const charactersLength = characters.length;
+  const mixCharacters = characters + '!@#$%¨&*()_+-=<>?';
+
+  const charactersLength = mixCharacters.length;
 
   for (let i = 0; i < length; i++) {
-    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    result += mixCharacters.charAt(
+      Math.floor(Math.random() * charactersLength),
+    );
   }
 
   return result;

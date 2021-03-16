@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-import handlebarsMailTemplate from './HandlebarsMailTemplate';
+import handlebarsMailTemplate from '@config/mail/HandlebarsMailTemplate';
 
 interface IMailContact {
   name: string;
@@ -57,7 +57,9 @@ export default class EtherealMail {
       html: await mailTemplate.parse(templateData),
     });
 
+    // eslint-disable-next-line
     console.log('Message sent: %s', message.messageId);
+    // eslint-disable-next-line
     console.log('Preview URL: %s', nodemailer.getTestMessageUrl(message));
   }
 }

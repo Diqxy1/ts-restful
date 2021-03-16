@@ -8,6 +8,12 @@ import {
 
 import { Exclude, Expose } from 'class-transformer';
 
+export enum Gender {
+  MALE = 'masculino',
+  FEMALE = 'feminino',
+  OTHER = 'outros',
+}
+
 @Entity('users')
 class User {
   @PrimaryGeneratedColumn('uuid')
@@ -22,6 +28,12 @@ class User {
   @Column()
   @Exclude()
   password: string;
+
+  @Column({ name: 'date_of_birth' })
+  dateOfBirth: Date;
+
+  @Column({ type: 'enum', enum: Gender, nullable: false })
+  gender: Gender;
 
   @Column({ nullable: true })
   @Exclude()

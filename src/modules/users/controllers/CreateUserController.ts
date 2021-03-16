@@ -6,9 +6,9 @@ export default class CreateUserController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { email, name } = request.body;
 
-    const sendForgotPasswordEmail = new CreateUserEmailService();
+    const createUserEmailService = new CreateUserEmailService();
 
-    await sendForgotPasswordEmail.execute({
+    await createUserEmailService.execute({
       email,
       name,
     });
