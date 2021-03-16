@@ -8,8 +8,8 @@ import EtherealMail from '@shared/http/services/EtherealMail';
 import generatedPassword from '@shared/http/middlewares/generatePassword';
 import mailConfig from '@config/mail/mail';
 import SalesMail from '@shared/http/services/SalesMail';
-import emailChecker from '../validators/emailChecker';
-import nameChecker from '../validators/nameChecker';
+import emailChecker from '../validators/checkers/emailChecker';
+import nameChecker from '../validators/checkers/nameChecker';
 
 interface IRequest {
   email: string;

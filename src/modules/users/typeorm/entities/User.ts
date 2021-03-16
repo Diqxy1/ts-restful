@@ -30,7 +30,7 @@ class User {
   password: string;
 
   @Column({ name: 'date_of_birth' })
-  dateOfBirth: Date;
+  dateOfBirth: string;
 
   @Column({ type: 'enum', enum: Gender, nullable: false })
   gender: Gender;

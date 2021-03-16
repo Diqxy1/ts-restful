@@ -5,6 +5,8 @@ export const createUserValidator = celebrate({
     name: Joi.string().required(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
+    dateOfBirth: Joi.date().required(),
+    gender: Joi.string().required(),
   },
 });
 
