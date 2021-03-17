@@ -13,6 +13,12 @@ const ordersController = new OrdersController();
 ordersRouter.use(isAuthenticated);
 
 ordersRouter.get('/:id/', showOrderValidator, ordersController.show);
+ordersRouter.get('/:id/', showOrderValidator, ordersController.showOffer);
 ordersRouter.post('/', createOrderValidator, ordersController.create);
+ordersRouter.post(
+  '/offer/',
+  createOrderValidator,
+  ordersController.createOffer,
+);
 
 export default ordersRouter;

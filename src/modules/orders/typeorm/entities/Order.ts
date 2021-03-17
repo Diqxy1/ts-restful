@@ -10,6 +10,7 @@ import {
 
 import Customer from '@modules/customers/typeorm/entities/Customer';
 import OrdersProducts from './OrdersProducts';
+import OffersProducts from './OrdersOffers';
 
 @Entity('orders')
 class Order {
@@ -24,6 +25,11 @@ class Order {
     cascade: true,
   })
   order_products: OrdersProducts[];
+
+  @OneToMany(() => OffersProducts, offer_products => offer_products.order, {
+    cascade: true,
+  })
+  offer_products: OffersProducts[];
 
   @CreateDateColumn()
   created_at: Date;

@@ -15,6 +15,7 @@ export default function serverError(
     });
   }
 
+  // eslint-disable-next-line
   console.log(error);
 
   return response.status(500).json({
